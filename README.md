@@ -60,9 +60,9 @@ Describe any challenges encountered while building the app.
 
 
 
-# Project 2 - *Name of App Here*
+# Project 2 - *Flicks*
 
-**Name of your app** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicks** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **8** hours spent in total
 
