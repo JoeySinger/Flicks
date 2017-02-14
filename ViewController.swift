@@ -16,6 +16,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
+    var endpoint: String!
+    
     
     
     
@@ -26,7 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(self.endpoint!)?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -36,7 +38,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                     print(dataDictionary)
                     
-                    self.movies = dataDictionary["results"] as! [NSDictionary]
+                    self.movies = dataDictionary["results"] as? [NSDictionary]
                     self.tableView.reloadData()
                 }
             }
@@ -112,6 +114,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         task.resume()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let movie = movies![indexPath!.row]
+        let detailViewController = segue.destination as! DetailViewController
+        detailViewController.movie = movie
+    }
+    
+
 
 }
 
